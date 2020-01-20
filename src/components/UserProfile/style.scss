@@ -1,32 +1,48 @@
 .wrapper-user-profile {
   display: flex;
   flex-direction: column;
-  //   background-color: black;
   max-height: 100%;
   min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 
-  .profile-top-section {
-    margin-top: 20px;
+  .profile {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    .user-image {
-      width: 128px;
-      height: 128px;
+    overflow: scroll;
+    .profile-top-section {
+      padding-top: 20px;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      border-radius: 50%;
-      border: 2px solid #f2f2f2;
+      .user-image {
+        width: 128px;
+        height: 128px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        border: 2px solid #f2f2f2;
+      }
+    }
+
+    .comments-section {
+      height: 100%;
+      display: flex;
+
+      justify-content: center;
+      align-items: center;
     }
   }
 }
 
 .user-details {
+  padding-left: 40px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   height: 100%;
-  //   color: white;
 }

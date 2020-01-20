@@ -6,7 +6,7 @@ import React, {
   SuspenseList
 } from "react";
 import { loadUserData } from "../UserCard";
-// import Header from "../../components/Header";
+import Header from "../../components/Header";
 import createDataSource from "../../utils/cacheApi";
 import { customFetch } from "../../utils/service";
 import imageCache from "../../utils/imageCache";
@@ -41,38 +41,43 @@ export default function UserProfile(props) {
   console.log("imgData :", imgData);
   return (
     <div className="wrapper-user-profile">
-      <div className="profile-top-section">
+      <Header />
+      <div className="profile">
         <SuspenseList>
-          <Suspense
-            fallback={
-              <div className="user-image">
-                <Loader />
-              </div>
-            }
-          >
-            <UserImage imageData={imgData} />
-          </Suspense>
+          <div className="profile-top-section">
+            <Suspense
+              fallback={
+                <div className="user-image">
+                  <Loader />
+                </div>
+              }
+            >
+              <UserImage imageData={imgData} />
+            </Suspense>
+            <Suspense
+              fallback={
+                <div>
+                  loading userDetails....
+                  <Loader />
+                </div>
+              }
+            >
+              <UserDetails data={data} />
+            </Suspense>
+          </div>
+        </SuspenseList>
+        <div className="comments-section">
           <Suspense
             fallback={
               <div>
-                loading userDetails....
+                loading user posts ....
                 <Loader />
               </div>
             }
           >
-            <UserDetails data={data} />
+            <CommentsCard data={postData} />
           </Suspense>
-        </SuspenseList>
-        <Suspense
-          fallback={
-            <div>
-              loading user posts ....
-              <Loader />
-            </div>
-          }
-        >
-          <CommentsCard data={postData} />
-        </Suspense>
+        </div>
       </div>
     </div>
   );
