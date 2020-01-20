@@ -92,18 +92,6 @@ function UserDetails(props) {
   );
 }
 
-// function UserPosts(props) {
-//   const posts = props.data.posts.read();
-
-//   return (
-//     <div className="wrapper-posts">
-//       {posts.map((post, index) => {
-//         return <div>{post.body}</div>;
-//       })}
-//     </div>
-//   );
-// }
-
 function UserImage({ imageData }) {
   const data = imageData.read();
   console.log("data: ", data);
