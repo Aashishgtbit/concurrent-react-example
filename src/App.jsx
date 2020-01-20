@@ -1,6 +1,5 @@
 import React, { Suspense, useState, createContext, useContext } from "react";
 import ErrorBoundary from "react-error-boundary";
-
 import createDataSource from "./utils/cacheApi";
 import { customFetch } from "./utils/service";
 import Header from "./components/Header";
