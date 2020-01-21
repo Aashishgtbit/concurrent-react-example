@@ -1,4 +1,10 @@
-import React, { useState, useTransition, useEffect, Suspense } from "react";
+import React, {
+  useState,
+  useTransition,
+  useEffect,
+  Suspense,
+  useCallback
+} from "react";
 import { withRouter } from "react-router-dom";
 import createDataSource from "../../utils/cacheApi";
 import { customFetch } from "../../utils/service";
@@ -17,6 +23,7 @@ export const loadUserData = userId => {
       );
     })
   };
+
   return { ...dataSource };
 };
 
@@ -28,16 +35,16 @@ export default withRouter(function UserCard(props) {
   const [imageData, loadImageData] = useState(
     imageCache(`https://i.pravatar.cc/256?img=${props.userData.id + 5}`)
   );
-  const setUserData = () => {
+  const setUserData = useCallback(() => {
     console.log("id :", props.userData.id);
     const userId = props.userData.id;
     startTransition(() => {
       setData(loadUserData(userId));
     });
-  };
+  }, [props.userData.id, startTransition]);
 
   if (data) {
-    console.log("user :", data.user.read());
+    data.user.read();
     props.history.push(`/${props.userData.id}`);
   }
 

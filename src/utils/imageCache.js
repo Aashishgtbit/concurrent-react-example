@@ -1,7 +1,5 @@
 export default function cacheImage(source) {
-  let imagePromise;
-
-  imagePromise = new Promise(resolve => {
+  const imagePromise = new Promise(resolve => {
     console.log("source :", source);
     const image = new Image();
     image.src = source;
@@ -9,9 +7,9 @@ export default function cacheImage(source) {
     return image;
   });
 
-  return handlePromise(imagePromise, source);
+  return handlePromise(imagePromise);
 }
-function handlePromise(promise, key) {
+function handlePromise(promise) {
   let status = "pending";
   let result;
   console.log("promise", promise);

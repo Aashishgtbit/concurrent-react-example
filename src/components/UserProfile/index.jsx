@@ -92,7 +92,7 @@ function UserDetails(props) {
     <div className="user-details">
       <div>name :{user.name}</div>
       <div>email :{user.email}</div>
-      <div>company Name :{user.company.name} </div>
+      <div>company :{user.company.name} </div>
     </div>
   );
 }
