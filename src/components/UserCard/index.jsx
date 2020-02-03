@@ -10,17 +10,26 @@ export default function UserCard(props) {
     imageCache(`https://i.pravatar.cc/256?img=${props.userData.id + 5}`)
   );
   return (
-    <div className="wrapper-user-cards">
+    <div
+      className={`wrapper-user-cards ${
+        props.isSelected ? "wrapper-user-cards--active" : ""
+      } `}
+    >
       <div>
         <Suspense
           fallback={
-            <div className="user-thumbnail">
+            <div
+              className={`user-thumbnail${
+                props.isSelected ? "user-thumbnail--active" : ""
+              } `}
+            >
               <Loader />
             </div>
           }
         >
           <Thumbnail
             imgData={imageData}
+            isSelected={props.isSelected}
             onClick={() => {
               props.handleUserData(props.userData.id);
             }}
@@ -45,12 +54,14 @@ export default function UserCard(props) {
   );
 }
 
-function Thumbnail({ imgData, onClick }) {
+function Thumbnail({ imgData, onClick, isSelected }) {
   const data = imgData.read();
 
   return (
     <img
-      className="user-thumbnail"
+      className={`user-thumbnail ${
+        isSelected ? "user-thumbnail--active" : ""
+      } `}
       src={data.src}
       alt="user-dp"
       onClick={onClick}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, BrowserRouter, Switch } from "react-router-dom";
+import { Route, BrowserRouter, HashRouter, Switch } from "react-router-dom";
 import App from "../App";
 import UserProfile from "../components/UserProfile";
 
@@ -17,7 +17,7 @@ const routesConfig = [
 
 export default function Routes() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Switch>
         {routesConfig.map(config => {
           return (
@@ -36,6 +36,6 @@ export default function Routes() {
           );
         })}
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   );
 }

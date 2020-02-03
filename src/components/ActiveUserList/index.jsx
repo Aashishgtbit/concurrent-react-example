@@ -66,6 +66,7 @@ export default withRouter(function ActiveUsersList(props) {
           return (
             <div className="user-list-item">
               <UserCard
+                isSelected={friend.id === activeUserId ? true : false}
                 userData={friend}
                 thumbnailUrl={`https://i.pravatar.cc/256?img=${friend.id + 5}`}
                 handleUserData={setUserData}
