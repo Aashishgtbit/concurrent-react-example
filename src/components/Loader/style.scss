@@ -4,26 +4,32 @@
   border-top: 4px solid #3498db;
   width: 30px;
   height: 30px;
-  -webkit-animation: spin 1s linear infinite; /* Safari */
+  -webkit-animation: 1s linear 0.5s forwards infinite spin; /* Safari */
 
-  animation: spin 1s linear infinite;
+  // animation: spin 1s linear infinite;
+  animation: 1s linear 0.5s forwards infinite spin;
+  visibility: hidden;
 }
 
 @-webkit-keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
+    visibility: visible;
   }
 
   100% {
     -webkit-transform: rotate(360deg);
+    visibility: visible;
   }
 }
 
 @keyframes spin {
   0% {
     transform: rotate(0deg);
+    visibility: visible;
   }
   100% {
     transform: rotate(360deg);
+    visibility: visible;
   }
 }
