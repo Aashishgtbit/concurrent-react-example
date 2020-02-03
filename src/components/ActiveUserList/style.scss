@@ -1,8 +1,21 @@
 .wrapper-user-list {
   display: flex;
-  flex-direction: column;
-  padding: 20px;
-  .user-list-item {
-    margin-bottom: 20px;
+  flex-direction: row;
+  //   padding-left: 20px;
+  width: 100%;
+  height: inherit;
+  overflow: hidden;
+
+  .friend-list {
+    display: flex;
+    flex-direction: column;
+
+    height: inherit;
+    overflow: scroll;
+    border-right: 2px solid #ebebeb;
+    padding: 20px;
+    .user-list-item {
+      margin-bottom: 20px;
+    }
   }
 }

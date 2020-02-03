@@ -12,7 +12,7 @@ export default function cacheImage(source) {
 function handlePromise(promise) {
   let status = "pending";
   let result;
-  console.log("promise", promise);
+  // console.log("promise", promise);
 
   let suspender = promise.then(
     res => {

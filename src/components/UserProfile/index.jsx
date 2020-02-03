@@ -1,11 +1,5 @@
-import React, {
-  useEffect,
-  useMemo,
-  Suspense,
-  useState,
-  SuspenseList
-} from "react";
-import { loadUserData } from "../UserCard";
+import React, { Suspense, useState, SuspenseList, useEffect } from "react";
+import { loadUserData } from "../ActiveUserList";
 import Header from "../../components/Header";
 import createDataSource from "../../utils/cacheApi";
 import { customFetch } from "../../utils/service";
@@ -14,7 +8,7 @@ import CommentsCard from "../CommentsCard";
 import Loader from "../Loader";
 import "./style.scss";
 
-const loadUserPosts = userId => {
+export const loadUserPosts = userId => {
   const dataSource = {
     posts: createDataSource(`posts:${userId}`, async () => {
       return await customFetch(
@@ -28,22 +22,24 @@ const loadUserPosts = userId => {
 };
 
 export default function UserProfile(props) {
-  console.log("userId", props.match.params.userId);
-  const [data, setData] = useState(loadUserData(props.match.params.userId));
-  const [postData, setPosts] = useState(
-    loadUserPosts(props.match.params.userId)
-  );
+  const data = props.userData;
+  console.log("props", props);
+  const [postData, setPosts] = useState(loadUserPosts(props.userId));
   const [imgData, loadImageData] = useState(
-    imageCache(
-      `https://i.pravatar.cc/256?img=${parseInt(props.match.params.userId) + 5}`
-    )
+    imageCache(`https://i.pravatar.cc/256?img=${props.userId + 5}`)
   );
-  console.log("imgData :", imgData);
+  console.log("id :", props.userId + 5);
+  useEffect(() => {
+    loadImageData(
+      imageCache(`https://i.pravatar.cc/256?img=${props.userId + 5}`)
+    );
+    setPosts(loadUserPosts(props.userId));
+  }, [props.userId]);
+
   return (
     <div className="wrapper-user-profile">
-      <Header />
       <div className="profile">
-        <SuspenseList>
+        <SuspenseList revealOrder="forwards">
           <div className="profile-top-section">
             <Suspense
               fallback={
@@ -54,6 +50,7 @@ export default function UserProfile(props) {
             >
               <UserImage imageData={imgData} />
             </Suspense>
+
             <Suspense
               fallback={
                 <div>
@@ -65,19 +62,19 @@ export default function UserProfile(props) {
               <UserDetails data={data} />
             </Suspense>
           </div>
+          <div className="comments-section">
+            <Suspense
+              fallback={
+                <div>
+                  loading user posts ....
+                  <Loader />
+                </div>
+              }
+            >
+              <CommentsCard data={postData} />
+            </Suspense>
+          </div>
         </SuspenseList>
-        <div className="comments-section">
-          <Suspense
-            fallback={
-              <div>
-                loading user posts ....
-                <Loader />
-              </div>
-            }
-          >
-            <CommentsCard data={postData} />
-          </Suspense>
-        </div>
       </div>
     </div>
   );
@@ -99,6 +96,6 @@ function UserDetails(props) {
 
 function UserImage({ imageData }) {
   const data = imageData.read();
-  console.log("data: ", data);
+  console.log("data : ", data);
   return <img className="user-image" src={data.src} alt="user-dp" />;
 }

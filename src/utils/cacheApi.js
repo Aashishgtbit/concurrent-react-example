@@ -1,7 +1,7 @@
 const dataSourceCache = new Map();
 
 export default function createDataSource(fetchId, fetch) {
-  console.log("createDataSource", [fetchId, fetch]);
+  // console.log("createDataSource", [fetchId, fetch]);
   const getData = (key, input) => {
     if (!dataSourceCache.has(key)) {
       const dataSource = {
@@ -25,11 +25,11 @@ export default function createDataSource(fetchId, fetch) {
 
   const dataSource = {
     read(input) {
-      console.log(input);
+      // console.log(input);
       const key = `${fetchId}:${input}`;
       getData(key, input);
       const result = dataSourceCache.get(key);
-      console.log("result :", result);
+      // console.log("result :", result);
 
       switch (result.status) {
         case "pending": {
