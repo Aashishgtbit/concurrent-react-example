@@ -32,13 +32,15 @@ export default function UserCard(props) {
           {props.userData.name}
           <span>{props.userData.userName}</span>
         </div>
-        <div>{props.userData.company.name}</div>
+        {/* <div>{props.userData.company.name}</div> */}
       </div>
-      {props.isPending ? (
-        <div className="wrapper-loader">
-          <Loader />{" "}
-        </div>
-      ) : null}
+      <div>
+        {props.isPending ? (
+          <div className="wrapper-loader">
+            <Loader />{" "}
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }
