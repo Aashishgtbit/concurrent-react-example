@@ -19,7 +19,7 @@ export default function UserCard(props) {
         <Suspense
           fallback={
             <div
-              className={`user-thumbnail${
+              className={`user-thumbnail ${
                 props.isSelected ? "user-thumbnail--active" : ""
               } `}
             >
