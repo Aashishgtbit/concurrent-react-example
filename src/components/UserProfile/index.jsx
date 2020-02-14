@@ -7,6 +7,7 @@ import imageCache from "../../utils/imageCache";
 import CommentsCard from "../CommentsCard";
 import Loader from "../Loader";
 import "./style.scss";
+import MySuspenseImage from "../../utils/imageCache";
 
 export const loadUserPosts = userId => {
   const dataSource = {
@@ -25,17 +26,20 @@ export default function UserProfile(props) {
   const data = props.userData;
   console.log("props", props);
   const [postData, setPosts] = useState(loadUserPosts(props.userId));
-  const [imgData, loadImageData] = useState(
-    imageCache(`https://i.pravatar.cc/256?img=${props.userId + 5}`)
-  );
+  // const [imgData, loadImageData] = useState(
+  //   imageCache(`https://i.pravatar.cc/256?img=${props.userId + 5}`)
+  // );
   console.log("id :", props.userId + 5);
   useEffect(() => {
-    loadImageData(
-      imageCache(`https://i.pravatar.cc/256?img=${props.userId + 5}`)
-    );
+    // loadImageData(
+    //   imageCache(`https://i.pravatar.cc/256?img=${props.userId + 5}`)
+    // );
     setPosts(loadUserPosts(props.userId));
   }, [props.userId]);
 
+  const handleButtonClick = e => {
+    console.log("handleButton Click called");
+  };
   return (
     <div className="wrapper-user-profile">
       <div className="profile">
@@ -48,7 +52,13 @@ export default function UserProfile(props) {
                 </div>
               }
             >
-              <UserImage imageData={imgData} />
+              {/* <UserImage imageData={imgData} /> */}
+              <div className="user-image">
+                <MySuspenseImage
+                  src={`https://i.pravatar.cc/256?img=${props.userId + 5}`}
+                  alt="user-dp"
+                />
+              </div>
             </Suspense>
 
             <Suspense
@@ -94,8 +104,8 @@ function UserDetails(props) {
   );
 }
 
-function UserImage({ imageData }) {
-  const data = imageData.read();
-  console.log("data : ", data);
-  return <img className="user-image" src={data.src} alt="user-dp" />;
-}
+// function UserImage({ imageData }) {
+//   const data = imageData.read();
+//   console.log("data : ", data);
+//   return <img className="user-image" src={data.src} alt="user-dp" />;
+// }

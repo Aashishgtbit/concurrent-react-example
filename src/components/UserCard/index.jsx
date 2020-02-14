@@ -4,11 +4,12 @@ import imageCache from "../../utils/imageCache";
 import Loader from "../Loader";
 
 import "./style.scss";
+import MySuspenseImage from "../../utils/imageCache";
 
 export default function UserCard(props) {
-  const [imageData, loadImageData] = useState(
-    imageCache(`https://i.pravatar.cc/256?img=${props.userData.id + 5}`)
-  );
+  // const [imageData, loadImageData] = useState(
+  //   imageCache(`https://i.pravatar.cc/256?img=${props.userData.id + 5}`)
+  // );
   return (
     <div
       className={`wrapper-user-cards ${
@@ -27,13 +28,26 @@ export default function UserCard(props) {
             </div>
           }
         >
-          <Thumbnail
+          {/* <Thumbnail
             imgData={imageData}
             isSelected={props.isSelected}
             onClick={() => {
               props.handleUserData(props.userData.id);
             }}
-          />
+          /> */}
+          <div
+            className={`user-thumbnail ${
+              props.isSelected ? "user-thumbnail--active" : ""
+            } `}
+          >
+            <MySuspenseImage
+              src={`https://i.pravatar.cc/256?img=${props.userData.id + 5}`}
+              alt="user-dp"
+              onClick={() => {
+                props.handleUserData(props.userData.id);
+              }}
+            />
+          </div>
         </Suspense>
       </div>
       <div className="user-data">
@@ -54,17 +68,17 @@ export default function UserCard(props) {
   );
 }
 
-function Thumbnail({ imgData, onClick, isSelected }) {
-  const data = imgData.read();
+// function Thumbnail({ imgData, onClick, isSelected }) {
+//   const data = imgData.read();
 
-  return (
-    <img
-      className={`user-thumbnail ${
-        isSelected ? "user-thumbnail--active" : ""
-      } `}
-      src={data.src}
-      alt="user-dp"
-      onClick={onClick}
-    />
-  );
-}
+//   return (
+//     <img
+//       className={`user-thumbnail ${
+//         isSelected ? "user-thumbnail--active" : ""
+//       } `}
+//       src={data.src}
+//       alt="user-dp"
+//       onClick={onClick}
+//     />
+//   );
+// }

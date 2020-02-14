@@ -4,6 +4,7 @@ import createDataSource from "./utils/cacheApi";
 import { customFetch } from "./utils/service";
 import Header from "./components/Header";
 import ActiveUsersList from "./components/ActiveUserList";
+import FilterList from "./components/FilterList";
 import "./styles.scss";
 
 const DataContext = createContext(null);
@@ -15,11 +16,17 @@ const makeDataSource = userId => {
       return (
         await customFetch("https://jsonplaceholder.typicode.com/users", 0)
       ).slice(0, 6 + Math.floor(Math.random() * 5));
+    }),
+    commentsList: createDataSource("commentList", async () => {
+      return (
+        await customFetch("https://jsonplaceholder.typicode.com/comments", 0)
+      ).slice(0, 100);
     })
   };
 
   const prefetch = () => {
     dataSource.userListData.prefetch();
+    dataSource.commentsList.prefetch();
   };
 
   return {
@@ -36,28 +43,31 @@ export default function App(props) {
     friendId
   };
   return (
-    <div className="app">
-      <Header />
-      <ErrorBoundary
-        FallbackComponent={props => {
-          console.log(props.error);
-          return <div> Error loading data </div>;
-        }}
-      >
-        <DataContext.Provider value={context}>
-          <Suspense fallback={<div> loading /.....</div>}>
-            <div className="wrapper-home">
-              <Suspense
-                fallback={
-                  <div className="loading-users"> Loading users ...</div>
-                }
-              >
-                <ActiveUsersList />
-              </Suspense>
-            </div>
-          </Suspense>
-        </DataContext.Provider>
-      </ErrorBoundary>
-    </div>
+    <React.StrictMode>
+      <div className="app">
+        <Header />
+        <ErrorBoundary
+          FallbackComponent={props => {
+            console.log(props.error);
+            return <div> Error loading data </div>;
+          }}
+        >
+          <DataContext.Provider value={context}>
+            <Suspense fallback={<div> loading .....</div>}>
+              <div className="wrapper-home">
+                <Suspense
+                  fallback={
+                    <div className="loading-users"> Loading users ...</div>
+                  }
+                >
+                  <ActiveUsersList />
+                  {/* <FilterList commentsList={dataSource.commentsList} /> */}
+                </Suspense>
+              </div>
+            </Suspense>
+          </DataContext.Provider>
+        </ErrorBoundary>
+      </div>
+    </React.StrictMode>
   );
 }

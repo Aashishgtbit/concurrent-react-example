@@ -7,15 +7,15 @@ import React, {
   Suspense,
   useEffect
 } from "react";
-import { withRouter } from "react-router-dom";
+// import { withRouter } from "react-router-dom";
 import UserCard from "../UserCard";
 import { useData } from "../../App";
 import "./style.scss";
 import createDataSource from "../../utils/cacheApi";
 import { customFetch } from "../../utils/service";
 import UserProfile, { loadUserPosts } from "../UserProfile";
-import { resolve } from "url";
-import { reject } from "q";
+// import { resolve } from "url";
+// import { reject } from "q";
 import Loader from "../Loader";
 
 export const loadUserData = userId => {
@@ -34,12 +34,23 @@ export const loadUserData = userId => {
 
 export const SUSPENSE_CONFIG = { timeoutMs: 3000 };
 
-export default withRouter(function ActiveUsersList(props) {
+export default function ActiveUsersList(props) {
   const { dataSource, friendId } = useData();
   const friends = dataSource.userListData.read();
   const [data, setData] = useState(loadUserData(1));
   const [startTransition, isPending] = useTransition(SUSPENSE_CONFIG);
+  const userList = [];
+  for (let i = 0; i < 10; i++) {
+    userList.push(...friends);
+    if (i === 999) {
+      console.log("finished looping at", Date.now());
+    }
+  }
 
+  useEffect(() => console.log("FINISHED RENDERING", Date.now()), []);
+
+  console.log("COMPLETED LOOPING and rendering");
+  console.log("userList :", userList);
   const [activeUserId, setActiveUserId] = useState(1);
 
   const setUserData = useCallback(
@@ -62,16 +73,25 @@ export default withRouter(function ActiveUsersList(props) {
   return (
     <div className="wrapper-user-list">
       <div className="friend-list">
-        {friends.map((friend, index) => {
+        {userList.map((friend, index) => {
           return (
             <div className="user-list-item">
-              <UserCard
-                isSelected={friend.id === activeUserId ? true : false}
-                userData={friend}
-                thumbnailUrl={`https://i.pravatar.cc/256?img=${friend.id + 5}`}
-                handleUserData={setUserData}
-                isPending={isPending && friend.id === activeUserId}
-              />
+              <Suspense
+                fallback={
+                  <div>
+                    Loading friend <Loader />{" "}
+                  </div>
+                }
+              >
+                <UserCard
+                  isSelected={friend.id === activeUserId ? true : false}
+                  userData={friend}
+                  thumbnailUrl={`https://i.pravatar.cc/256?img=${friend.id +
+                    5}`}
+                  handleUserData={setUserData}
+                  isPending={isPending && friend.id === activeUserId}
+                />
+              </Suspense>
             </div>
           );
         })}
@@ -85,4 +105,4 @@ export default withRouter(function ActiveUsersList(props) {
       )}
     </div>
   );
-});
+}
