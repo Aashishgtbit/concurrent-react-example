@@ -1,7 +1,6 @@
 const dataSourceCache = new Map();
 
 export default function createDataSource(fetchId, fetch) {
-  // console.log("createDataSource", [fetchId, fetch]);
   const getData = (key, input) => {
     if (!dataSourceCache.has(key)) {
       const dataSource = {

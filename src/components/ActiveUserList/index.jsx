@@ -39,18 +39,18 @@ export default function ActiveUsersList(props) {
   const friends = dataSource.userListData.read();
   const [data, setData] = useState(loadUserData(1));
   const [startTransition, isPending] = useTransition(SUSPENSE_CONFIG);
-  const userList = [];
-  for (let i = 0; i < 10; i++) {
-    userList.push(...friends);
-    if (i === 999) {
-      console.log("finished looping at", Date.now());
-    }
-  }
+  // const userList = [];
+  // for (let i = 0; i < 10; i++) {
+  //   userList.push(...friends);
+  //   if (i === 999) {
+  //     console.log("finished looping at", Date.now());
+  //   }
+  // }
 
   useEffect(() => console.log("FINISHED RENDERING", Date.now()), []);
 
   console.log("COMPLETED LOOPING and rendering");
-  console.log("userList :", userList);
+  // console.log("userList :", userList);
   const [activeUserId, setActiveUserId] = useState(1);
 
   const setUserData = useCallback(
@@ -73,7 +73,7 @@ export default function ActiveUsersList(props) {
   return (
     <div className="wrapper-user-list">
       <div className="friend-list">
-        {userList.map((friend, index) => {
+        {friends.map((friend, index) => {
           return (
             <div className="user-list-item">
               <Suspense

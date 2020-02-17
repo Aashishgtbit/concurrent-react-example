@@ -43,7 +43,7 @@ export default function UserProfile(props) {
   return (
     <div className="wrapper-user-profile">
       <div className="profile">
-        <SuspenseList revealOrder="forwards">
+        <SuspenseList revealOrder="forwards" tail="collapsed">
           <div className="profile-top-section">
             <Suspense
               fallback={
@@ -52,7 +52,6 @@ export default function UserProfile(props) {
                 </div>
               }
             >
-              {/* <UserImage imageData={imgData} /> */}
               <div className="user-image">
                 <MySuspenseImage
                   src={`https://i.pravatar.cc/256?img=${props.userId + 5}`}

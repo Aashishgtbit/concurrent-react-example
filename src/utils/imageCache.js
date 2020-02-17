@@ -5,9 +5,7 @@ import "../styles.scss";
 export function cacheImage(source) {
   const resource = createDataSource(source, () => {
     return new Promise(resolve => {
-      console.log("source :", source);
       const image = new Image();
-
       image.onload = () => {
         resolve(source);
       };
@@ -19,22 +17,44 @@ export function cacheImage(source) {
     });
   });
   return resource;
-  // const imagePromise = new Promise(resolve => {
-  //   console.log("source :", source);
-  //   const image = new Image();
-
-  //   image.onload = () => {
-  //     resolve(source);
-  //   };
-  //   image.onerror=(error)=> {
-  //     console.error(error);
-  //     resolve(error);
-  //   }
-  //   image.src = source;
-  // });
-
-  // return handlePromise(imagePromise);
 }
+
+export const loadImage = source => {
+  cacheImage(source).read();
+};
+export default function MySuspenseImage(props) {
+  const { src } = props;
+  if (src != null) {
+    loadImage(src);
+  }
+  return (
+    <img
+      className="suspense-image"
+      src={props.src}
+      alt={props.alt}
+      onClick={props.onClick ? props.onClick : undefined}
+    />
+  );
+}
+
+/** @ExperimentalCode  */
+
+// const imagePromise = new Promise(resolve => {
+//   console.log("source :", source);
+//   const image = new Image();
+
+//   image.onload = () => {
+//     resolve(source);
+//   };
+//   image.onerror=(error)=> {
+//     console.error(error);
+//     resolve(error);
+//   }
+//   image.src = source;
+// });
+
+// return handlePromise(imagePromise);
+
 // function handlePromise(promise) {
 //   let status = "pending";
 //   let result;
@@ -63,22 +83,3 @@ export function cacheImage(source) {
 //     }
 //   };
 // }
-
-export const loadImage = source => {
-  cacheImage(source).read();
-};
-
-export default function MySuspenseImage(props) {
-  const { src } = props;
-  if (src != null) {
-    loadImage(src);
-  }
-  return (
-    <img
-      className="suspense-image"
-      src={props.src}
-      alt={props.alt}
-      onClick={props.onClick ? props.onClick : undefined}
-    />
-  );
-}
