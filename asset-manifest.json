@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/concurrent-react-example/static/css/main.0539a23c.chunk.css",
-    "main.js": "/concurrent-react-example/static/js/main.b431bc91.chunk.js",
-    "main.js.map": "/concurrent-react-example/static/js/main.b431bc91.chunk.js.map",
+    "main.js": "/concurrent-react-example/static/js/main.591b90fb.chunk.js",
+    "main.js.map": "/concurrent-react-example/static/js/main.591b90fb.chunk.js.map",
     "runtime-main.js": "/concurrent-react-example/static/js/runtime-main.d5d50c07.js",
     "runtime-main.js.map": "/concurrent-react-example/static/js/runtime-main.d5d50c07.js.map",
-    "static/js/2.b5e1bda3.chunk.js": "/concurrent-react-example/static/js/2.b5e1bda3.chunk.js",
-    "static/js/2.b5e1bda3.chunk.js.map": "/concurrent-react-example/static/js/2.b5e1bda3.chunk.js.map",
+    "static/js/2.8f5f991a.chunk.js": "/concurrent-react-example/static/js/2.8f5f991a.chunk.js",
+    "static/js/2.8f5f991a.chunk.js.map": "/concurrent-react-example/static/js/2.8f5f991a.chunk.js.map",
     "index.html": "/concurrent-react-example/index.html",
-    "precache-manifest.97bd741869a74c46b3a46d4ca9daf569.js": "/concurrent-react-example/precache-manifest.97bd741869a74c46b3a46d4ca9daf569.js",
+    "precache-manifest.5a4505312aeaaf2f48b8fce6e102721c.js": "/concurrent-react-example/precache-manifest.5a4505312aeaaf2f48b8fce6e102721c.js",
     "service-worker.js": "/concurrent-react-example/service-worker.js",
     "static/css/main.0539a23c.chunk.css.map": "/concurrent-react-example/static/css/main.0539a23c.chunk.css.map",
-    "static/js/2.b5e1bda3.chunk.js.LICENSE": "/concurrent-react-example/static/js/2.b5e1bda3.chunk.js.LICENSE"
+    "static/js/2.8f5f991a.chunk.js.LICENSE": "/concurrent-react-example/static/js/2.8f5f991a.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.d5d50c07.js",
-    "static/js/2.b5e1bda3.chunk.js",
+    "static/js/2.8f5f991a.chunk.js",
     "static/css/main.0539a23c.chunk.css",
-    "static/js/main.b431bc91.chunk.js"
+    "static/js/main.591b90fb.chunk.js"
   ]
 }
