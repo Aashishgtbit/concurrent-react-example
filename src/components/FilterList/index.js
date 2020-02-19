@@ -5,24 +5,28 @@ const FilterList = props => {
   const commentsList = props.commentsList.read();
   const [filteredListdata, updateFilterList] = useState(commentsList);
 
-  const handleInputChange = useCallback(searchText => {
-    if (searchText === "") {
-      updateFilterList(commentsList);
-      return;
-    }
-    updateFilterList(filteredListdata => {
-      const newList = [];
-      filteredListdata.forEach(element => {
-        console.log("comment :", element.name.toLowerCase());
-        console.log("searchText :", searchText);
+  const handleInputChange = useCallback(
+    searchText => {
+      if (searchText === "") {
+        updateFilterList(commentsList);
+        return;
+      }
+      updateFilterList(filteredListdata => {
+        const newList = [];
+        filteredListdata.forEach(element => {
+          console.log("comment :", element.name.toLowerCase());
+          console.log("searchText :", searchText);
 
-        if (element.name.toLowerCase().includes(searchText.toLowerCase())) {
-          newList.push(element);
-        }
+          if (element.name.toLowerCase().includes(searchText.toLowerCase())) {
+            newList.push(element);
+          }
+        });
+        return newList;
       });
-      return newList;
-    });
-  });
+    },
+    [commentsList]
+  );
+
   return (
     <div>
       <SearchBar onChange={handleInputChange} />

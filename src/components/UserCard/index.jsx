@@ -1,15 +1,11 @@
-import React, { useState, Suspense } from "react";
+import React, { Suspense } from "react";
 
-import imageCache from "../../utils/imageCache";
 import Loader from "../Loader";
 
 import "./style.scss";
 import MySuspenseImage from "../../utils/imageCache";
 
 export default function UserCard(props) {
-  // const [imageData, loadImageData] = useState(
-  //   imageCache(`https://i.pravatar.cc/256?img=${props.userData.id + 5}`)
-  // );
   return (
     <div
       className={`wrapper-user-cards ${
@@ -28,13 +24,6 @@ export default function UserCard(props) {
             </div>
           }
         >
-          {/* <Thumbnail
-            imgData={imageData}
-            isSelected={props.isSelected}
-            onClick={() => {
-              props.handleUserData(props.userData.id);
-            }}
-          /> */}
           <div
             className={`user-thumbnail ${
               props.isSelected ? "user-thumbnail--active" : ""
@@ -55,7 +44,6 @@ export default function UserCard(props) {
           {props.userData.name}
           <span>{props.userData.userName}</span>
         </div>
-        {/* <div>{props.userData.company.name}</div> */}
       </div>
       <div>
         {props.isPending ? (
@@ -67,18 +55,3 @@ export default function UserCard(props) {
     </div>
   );
 }
-
-// function Thumbnail({ imgData, onClick, isSelected }) {
-//   const data = imgData.read();
-
-//   return (
-//     <img
-//       className={`user-thumbnail ${
-//         isSelected ? "user-thumbnail--active" : ""
-//       } `}
-//       src={data.src}
-//       alt="user-dp"
-//       onClick={onClick}
-//     />
-//   );
-// }

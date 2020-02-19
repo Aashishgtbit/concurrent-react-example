@@ -1,9 +1,8 @@
 import React, { Suspense, useState, SuspenseList, useEffect } from "react";
-import { loadUserData } from "../ActiveUserList";
-import Header from "../../components/Header";
+
 import createDataSource from "../../utils/cacheApi";
 import { customFetch } from "../../utils/service";
-import imageCache from "../../utils/imageCache";
+
 import CommentsCard from "../CommentsCard";
 import Loader from "../Loader";
 import "./style.scss";
@@ -26,20 +25,12 @@ export default function UserProfile(props) {
   const data = props.userData;
   console.log("props", props);
   const [postData, setPosts] = useState(loadUserPosts(props.userId));
-  // const [imgData, loadImageData] = useState(
-  //   imageCache(`https://i.pravatar.cc/256?img=${props.userId + 5}`)
-  // );
+
   console.log("id :", props.userId + 5);
   useEffect(() => {
-    // loadImageData(
-    //   imageCache(`https://i.pravatar.cc/256?img=${props.userId + 5}`)
-    // );
     setPosts(loadUserPosts(props.userId));
   }, [props.userId]);
 
-  const handleButtonClick = e => {
-    console.log("handleButton Click called");
-  };
   return (
     <div className="wrapper-user-profile">
       <div className="profile">
@@ -63,7 +54,7 @@ export default function UserProfile(props) {
             <Suspense
               fallback={
                 <div>
-                  loading userDetails....
+                  <b>loading userDetails....</b>
                   <Loader />
                 </div>
               }
@@ -75,7 +66,7 @@ export default function UserProfile(props) {
             <Suspense
               fallback={
                 <div>
-                  loading user posts ....
+                  <b> loading user posts ....</b>
                   <Loader />
                 </div>
               }
@@ -102,9 +93,3 @@ function UserDetails(props) {
     </div>
   );
 }
-
-// function UserImage({ imageData }) {
-//   const data = imageData.read();
-//   console.log("data : ", data);
-//   return <img className="user-image" src={data.src} alt="user-dp" />;
-// }

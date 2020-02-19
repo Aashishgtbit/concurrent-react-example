@@ -1,21 +1,18 @@
 import React, {
-  useContext,
   useCallback,
   useTransition,
   useState,
-  useMemo,
   Suspense,
   useEffect
 } from "react";
-// import { withRouter } from "react-router-dom";
+
 import UserCard from "../UserCard";
 import { useData } from "../../App";
 import "./style.scss";
 import createDataSource from "../../utils/cacheApi";
 import { customFetch } from "../../utils/service";
-import UserProfile, { loadUserPosts } from "../UserProfile";
-// import { resolve } from "url";
-// import { reject } from "q";
+import UserProfile from "../UserProfile";
+
 import Loader from "../Loader";
 
 export const loadUserData = userId => {
@@ -35,22 +32,13 @@ export const loadUserData = userId => {
 export const SUSPENSE_CONFIG = { timeoutMs: 3000 };
 
 export default function ActiveUsersList(props) {
-  const { dataSource, friendId } = useData();
+  const { dataSource } = useData();
   const friends = dataSource.userListData.read();
   const [data, setData] = useState(loadUserData(1));
   const [startTransition, isPending] = useTransition(SUSPENSE_CONFIG);
-  // const userList = [];
-  // for (let i = 0; i < 10; i++) {
-  //   userList.push(...friends);
-  //   if (i === 999) {
-  //     console.log("finished looping at", Date.now());
-  //   }
-  // }
 
   useEffect(() => console.log("FINISHED RENDERING", Date.now()), []);
 
-  console.log("COMPLETED LOOPING and rendering");
-  // console.log("userList :", userList);
   const [activeUserId, setActiveUserId] = useState(1);
 
   const setUserData = useCallback(
@@ -58,7 +46,6 @@ export default function ActiveUsersList(props) {
       console.log("setUserData id :", id);
       setActiveUserId(id);
       startTransition(() => {
-        console.log("startTransition  called ");
         setData(loadUserData(id));
       });
     },
