@@ -24,12 +24,9 @@ export default function createDataSource(fetchId, fetch) {
 
   const dataSource = {
     read(input) {
-      // console.log(input);
       const key = `${fetchId}:${input}`;
       getData(key, input);
       const result = dataSourceCache.get(key);
-      // console.log("result :", result);
-
       switch (result.status) {
         case "pending": {
           const suspender = result.promise;
@@ -45,7 +42,6 @@ export default function createDataSource(fetchId, fetch) {
         }
 
         default:
-          // unexpected case ...
           return undefined;
       }
     },

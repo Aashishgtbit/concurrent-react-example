@@ -40,12 +40,15 @@ export default function ActiveUsersList(props) {
   useEffect(() => console.log("FINISHED RENDERING", Date.now()), []);
 
   const [activeUserId, setActiveUserId] = useState(1);
+  const [userId, handleActiveUserId] = useState();
 
   const setUserData = useCallback(
     id => {
       console.log("setUserData id :", id);
-      setActiveUserId(id);
+      handleActiveUserId(id);
+
       startTransition(() => {
+        setActiveUserId(id);
         setData(loadUserData(id));
       });
     },
@@ -71,12 +74,12 @@ export default function ActiveUsersList(props) {
                 }
               >
                 <UserCard
-                  isSelected={friend.id === activeUserId ? true : false}
+                  isSelected={friend.id === userId ? true : false}
                   userData={friend}
                   thumbnailUrl={`https://i.pravatar.cc/256?img=${friend.id +
                     5}`}
                   handleUserData={setUserData}
-                  isPending={isPending && friend.id === activeUserId}
+                  isPending={isPending && friend.id === userId}
                 />
               </Suspense>
             </div>
